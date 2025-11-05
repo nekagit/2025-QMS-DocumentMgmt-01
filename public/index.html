@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Management System - QMS</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📄 Document Management System</h1>
+            <p class="subtitle">Manage quality documents with version control</p>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h2>Quick Actions</h2>
+                <button class="btn btn-primary" hx-get="/api/documents" hx-target="#document-list" hx-swap="innerHTML">
+                    Refresh List
+                </button>
+            </div>
+
+            <div class="content">
+                <div class="card">
+                    <h2>Add New Document</h2>
+                    <form hx-post="/api/documents" hx-target="#document-list" hx-swap="outerHTML" hx-on::after-request="this.reset()">
+                        <div class="form-group">
+                            <label for="title">Document Title</label>
+                            <input type="text" id="title" name="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="version">Version</label>
+                            <input type="text" id="version" name="version" value="1.0">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" name="category" required>
+                                <option value="Policy">Policy</option>
+                                <option value="Procedure">Procedure</option>
+                                <option value="Form">Form</option>
+                                <option value="Record">Record</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select id="status" name="status">
+                                <option value="Draft">Draft</option>
+                                <option value="Review">Under Review</option>
+                                <option value="Approved">Approved</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Document</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2>Document List</h2>
+                    <div id="document-list" hx-get="/api/documents" hx-trigger="load">
+                        <div class="loading">Loading documents...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
+
