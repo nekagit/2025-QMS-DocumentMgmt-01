@@ -83,5 +83,6 @@ app.get('/api/documents/:id', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Document Management System running on http://localhost:${PORT}`);
+  console.log(`Open http://localhost:${PORT} in your browser`);
 });
 
